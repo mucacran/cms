@@ -1,2 +1,8 @@
-<app-header></app-header>
-<app-contacts></app-contacts>
+<app-header
+    (selectedFeatureEvent)="switchView($event)"
+/>
+<div class="container pull-left" [ngSwitch]="selectedFeature">
+    <app-documents *ngSwitchCase="'documents'"/>
+    <app-message-list *ngSwitchCase="'messages'"/>
+    <app-contacts *ngSwitchDefault/>
+</div>
