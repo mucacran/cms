@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { Message } from "../message.model";
+//import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-message-edit',
@@ -15,6 +16,9 @@ export class MessageEditComponent implements OnInit{
   //Use the @viewChild property decorator  to creates an ElementRef for the subject and msgText input elements in the DOM
   @ViewChild('subject') subject: ElementRef;
   @ViewChild('msgText') msgText: ElementRef;
+
+  
+  
 
   //Created a string named currentSender and initialized int with the value of you name
   currentSender: string = 'Brother Sergio';
