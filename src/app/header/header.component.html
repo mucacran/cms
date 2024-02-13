@@ -20,7 +20,7 @@
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown" [ngClass]="{'in':isUserDropdownOpen}">
+          <li class="dropdown" [ngClass]="{'open':isUserDropdownOpen}">
             <a href="#" (click)="toggleUserDropdown()">User <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
               <li><a href="#">Profile</a></li>

@@ -9,10 +9,10 @@ import { Document } from '../document.model';
 export class DocumentListComponent {
   @Output() selectedDocumentEvent = new EventEmitter();
   documents =[
-    new Document('1','DummyDocument 1', 'this is DummyDocument 1.', 'https://www.byui.com/1'),
-    new Document('2','DummyDocument 2', 'this is DummyDocument 2.', 'https://www.byui.com/2'),
-    new Document('3','DummyDocument 3', 'this is DummyDocument 3.', 'https://www.byui.com/3'),
-    new Document('4','DummyDocument 4', 'this is DummyDocument 4.', 'https://www.byui.com/4'),
+    new Document('1','Doc 1', 'this is Doc 1.', 'https://www.byui.com/1'),
+    new Document('2','Doc 2', 'this is Doc 2.', 'https://www.byui.com/2'),
+    new Document('3','Doc 3', 'this is Doc 3.', 'https://www.byui.com/3'),
+    new Document('4','Doc 4', 'this is Doc 4.', 'https://www.byui.com/4'),
   ];
 
   onSelectedDocument(document: Document){
