@@ -3,6 +3,6 @@
 />
 <div class="container pull-left" [ngSwitch]="selectedFeature">
     <cms-documents *ngSwitchCase="'documents'"/>
-    <cms-messages *ngSwitchCase="'messages'"/>
+    <cms-message-list *ngSwitchCase="'messages'"/>
     <cms-contacts *ngSwitchDefault/>
 </div>
