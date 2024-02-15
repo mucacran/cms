@@ -4,23 +4,24 @@ import { Message } from '../message.model';
 @Component({
   selector: 'cms-message-list',
   templateUrl: './message-list.component.html',
-  styleUrl: './message-list.component.css',
+  styleUrls: ['./message-list.component.css'],
 })
 
-export class MessageListComponent {
-  //sample list of message to the test this component
-  messages: Message[] = [
-    new Message('1', 'message 1', 'this is the first message', 'Danniel'),
-    new Message('2', 'message 2', 'this is the first message', 'Jonny'),
-    new Message('3', 'message 3', 'this is the first message', 'Carlos'),
-  ];
+export class MessageListComponent implements OnInit{
 
-  constructor() {}
+    //sample list of message to the test this component
+    messages: Message[]=[
+      new Message('1','message 1','this is the first message', 'Danniel'),
+      new Message('2','message 2','this is the first message', 'Jonny'),
+      new Message('3','message 3','this is the first message', 'Carlos')
+    ];
 
-  ngOnInit(): void {}
+    constructor(){}
 
-  //ad a message to the message list
-  onAddMessage(message: Message) {
-    this.messages.push(message);
-  }
+    ngOnInit(): void {}
+
+    //ad a message to the message list
+    onAddMessage(message: Message){
+      this.messages.push(message);
+    }
 }

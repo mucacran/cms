@@ -6,7 +6,7 @@ import { Message } from "../message.model";
   templateUrl: './message-edit.component.html',
   styleUrl: './message-edit.component.css'
 })
-export class MessageEditComponent {
+export class MessageEditComponent implements OnInit{
     //custom EventEmitter to output the new Message object up to the MessageListComponent
     @Output() addMessageEvent = new EventEmitter<Message>();
 
