@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { Message } from '../messages.module';
+import { Message } from "../message.model";
 
 @Component({
   selector: 'cms-message-edit',
@@ -7,19 +7,23 @@ import { Message } from '../messages.module';
   styleUrl: './message-edit.component.css'
 })
 export class MessageEditComponent {
-  @Output() addMessageEvent = new EventEmitter<Message>();
+    //custom EventEmitter to output the new Message object up to the MessageListComponent
+    @Output() addMessageEvent = new EventEmitter<Message>();
 
-  //We need values entered in the subject and msgText input elements from the Document Object Model (DOM)
-  //Use the @viewChild property decorator  to creates an ElementRef for the subject and msgText input elements in the DOM
-  @ViewChild('subject') subject: ElementRef;
-  @ViewChild('msgText') msgText: ElementRef;
-
-  //Created a string named currentSender and initialized int with the value of you name
-  currentSender: string = 'Brother Sergio';
-
-  constructor(){}
-
-  ngOnInit():void{}
+    //We need values entered in the subject and msgText input elements from the Document Object Model (DOM)
+    //Use the @viewChild property decorator  to creates an ElementRef for the subject and msgText input elements in the DOM
+    @ViewChild('subject') subject: ElementRef;
+    @ViewChild('msgText') msgText: ElementRef;
+  
+    
+    
+  
+    //Created a string named currentSender and initialized int with the value of you name
+    currentSender: string = 'Brother Sergio';
+  
+    constructor(){}
+  
+    ngOnInit():void{}
 
   onSendMessage(){
     //get the value stored in the subject
