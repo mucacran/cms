@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { Message } from "../message.model";
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'cms-message-edit',
@@ -21,19 +22,26 @@ export class MessageEditComponent implements OnInit {
   //Created a string named currentSender and initialized int with the value of you name
   currentSender: string = 'Brother Sergio';
 
-  constructor() { }
+  constructor(private messageService:MessageService) { }
 
   ngOnInit(): void { }
 
-  onSendMessage() {
-    //get the value stored in the subject
+  // onSendMessage() {
+  //   //get the value stored in the subject
+  //   const subject = this.subject.nativeElement.value;
+  //   //get the value stored in the msgText
+  //   const msgText = this.msgText.nativeElement.value;
+  //   //assign a hardcoded number to the id property of the new Message object
+  //   const message = new Message('1', subject, msgText, this.currentSender);
+  //   // call the addMessageEvent emitter emit() metho and pass it the new message
+  //   this.addMessageEvent.emit(message);
+  // }
+
+  onSendMessage(){
     const subject = this.subject.nativeElement.value;
-    //get the value stored in the msgText
     const msgText = this.msgText.nativeElement.value;
-    //assign a hardcoded number to the id property of the new Message object
-    const message = new Message('1', subject, msgText, this.currentSender);
-    // call the addMessageEvent emitter emit() metho and pass it the new message
-    this.addMessageEvent.emit(message);
+    const message = new Message(this.messageService.getNextId(), subject, msgText, this.currentSender);
+    this.messageService.addMessage(message);
   }
 
   onClear() {
