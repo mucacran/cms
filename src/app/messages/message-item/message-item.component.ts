@@ -23,6 +23,5 @@ export class MessageItemComponent implements OnInit {
       console.log(contact)
       this.messageSender = contact.name;
     }
-
   }
 }
