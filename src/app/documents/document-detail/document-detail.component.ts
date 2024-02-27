@@ -35,10 +35,10 @@ export class DocumentDetailComponent {
       this.nativeWindow.open(this.document.url);
     }
   }
-/*
+
   onDelete() {
     this.documentService.deleteDocument(this.document);
     this.router.navigate(['/documents'], {relativeTo: this.route});
     console.log('deleted');
- }*/
+ }
 }
