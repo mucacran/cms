@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 export class DocumentListComponent implements OnInit {
   documents: Document[] = [];
   documentId: string = '';
+  subscription: Subscription;
 
   constructor(private documentService: DocumentService) {
     this.documents = this.documentService.getDocuments();
@@ -19,12 +20,16 @@ export class DocumentListComponent implements OnInit {
 
   ngOnInit() {
     this.documents = this.documentService.getDocuments();
-    this.documentService.documentChangedEvent
+    this.subscription = this.documentService.documentListChangedEvent
       .subscribe(
-        (documents: Document[]) => {
-          this.documents = documents;
-        }
+        (documentsList: Document[]) => {
+          this.documents = documentsList;
+        },
       );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
 }
