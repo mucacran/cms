@@ -10,7 +10,10 @@
             </div>
         </div>
     </div>
-    <div class="panel-body">
-        <cms-contact-item  *ngFor="let contact of contacts" [contact]="contact"/>
+    <div class="panel-body"
+        cdkDropList
+        [cdkDropListConnectedTo]="['groupList']"
+        [cdkDropListData]="contacts">
+        <cms-contact-item  *ngFor="let contact of contacts" [contact]="contact" cdkDrag/>
     </div>
 </div>
