@@ -19,6 +19,7 @@ import { MessageListComponent } from './messages/message-list/message-list.compo
 import { AppRoutingModule } from './app-routing.module';
 import { DocumentEditComponent } from './documents/document-edit/document-edit.component';
 import { ContactEditComponent } from './contacts/contact-edit/contact-edit.component';
+import { ContactsFilterPipe } from './contacts/contacts-filter.pipe';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { ContactEditComponent } from './contacts/contact-edit/contact-edit.compo
     MessageEditComponent,
     MessageListComponent,
     DocumentEditComponent,
-    ContactEditComponent
+    ContactEditComponent,
+    ContactsFilterPipe
   ],
   imports: [
     BrowserModule,
