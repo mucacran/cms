@@ -1,12 +1,15 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Document } from '../documents/document.model'
 import { MOCKDOCUMENTS } from './MOCKDOCUMENTS';
-import { Subject } from 'rxjs';
+import { Observable, Subject, map } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DocumentService {
+
+  bdD:string = 'https://cms-byui-wd430-default-rtdb.firebaseio.com/documents.json';
 
   documentSelectedEvent = new EventEmitter<Document>();
   // documentChangedEvent = new EventEmitter<Document[]>();
@@ -15,14 +18,27 @@ export class DocumentService {
   maxDocumentId: number;
 
   documents: Document[] = [];
-  constructor() {
+  constructor(private http: HttpClient) {
     this.documents = MOCKDOCUMENTS;
     this.maxDocumentId = this.getMaxId();
   }
 
-  getDocuments(): Document[] {
+  /*getDocuments(): Document[] {
     return this.documents.slice();
-  }
+  }*/
+  getDocuments() {
+    //return this.documents.slice();
+    //return this.http.get<Document[]>(this.bd)
+   this.http.get<Document[]>(this.bdD)
+    .subscribe({
+      next: (documents: Document[] ) => {
+        this.documents = documents;
+      },
+       (error: any) => {
+         console.log(error);
+      }
+  })
+}
 
   getDocument(id: string): Document {
     return this.documents.find((c) => c.id === id);
