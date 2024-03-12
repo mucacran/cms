@@ -20,10 +20,11 @@ export class DocumentDetailComponent {
     private router: Router,
     private windRefService: WindRefService
   ) {
-    this.nativeWindow = windRefService.getNativeWindow();
+    
   }
 
   ngOnInit() {
+    this.nativeWindow = this.windRefService.getNativeWindow();
     this.route.params.subscribe((params: Params) => {
       this.id = params['id'];
       this.document = this.documentService.getDocument(this.id);
