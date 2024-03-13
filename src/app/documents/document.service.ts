@@ -26,19 +26,10 @@ export class DocumentService {
   /*getDocuments(): Document[] {
     return this.documents.slice();
   }*/
-  getDocuments() {
-    //return this.documents.slice();
-    //return this.http.get<Document[]>(this.bd)
-   this.http.get<Document[]>(this.bdD)
-    .subscribe({
-      next: (documents: Document[] ) => {
-        this.documents = documents;
-      },
-       (error: any) => {
-         console.log(error);
-      }
-  })
-}
+  
+  getDocuments(): Observable<Document[]> {
+    return this.http.get<Document[]>(this.bdD);
+  }
 
   getDocument(id: string): Document {
     return this.documents.find((c) => c.id === id);

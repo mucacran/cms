@@ -19,12 +19,21 @@ export class DocumentListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.documents = this.documentService.getDocuments();
-    this.subscription = this.documentService.documentListChangedEvent
+    //this.documents = this.documentService.getDocuments();
+    /*this.subscription = this.documentService.documentListChangedEvent
       .subscribe(
         (documentsList: Document[]) => {
           this.documents = documentsList;
         },
+      );*/
+      this.subscription = this.documentService.getDocuments().subscribe(
+        (documents: Document[]) => {
+          this.documents = documents;
+          const maxDocumentId: number = this.documentService.getMaxId()
+        },
+        (error: any) => {
+          console.error(error); // Maneja el error de manera adecuada
+        }
       );
   }
 
