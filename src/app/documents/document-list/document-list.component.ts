@@ -14,28 +14,17 @@ export class DocumentListComponent implements OnInit, OnDestroy {
   documentId: string = '';
   subscription: Subscription;
 
-  constructor(private documentService: DocumentService) {
-
-  }
+  constructor(private documentService: DocumentService) {}
 
   ngOnInit() {
-    //this.documents = this.documentService.getDocuments();
-    /*this.subscription = this.documentService.documentListChangedEvent
-      .subscribe(
-        (documentsList: Document[]) => {
-          this.documents = documentsList;
-        },
-      );*/
-      this.subscription = this.documentService.getDocuments().subscribe(
-        (documents: Document[]) => {
-          this.documents = documents;
-          const maxDocumentId: number = this.documentService.getMaxId();
-          console.log(maxDocumentId.valueOf);
-        },
-        (error: any) => {
-          console.error(error); // Maneja el error de manera adecuada
-        }
-      );
+    this.subscription = this.documentService.getDocuments().subscribe({
+      next: (documents: Document[]) => {
+        this.documents = documents;
+      },
+      error: (error: any) => {
+        console.error(error); // Maneja el error de manera adecuada
+      }
+    });
   }
 
   ngOnDestroy(): void {

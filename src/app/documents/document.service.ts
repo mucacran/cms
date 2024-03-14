@@ -12,7 +12,6 @@ export class DocumentService {
   bdD:string = 'https://cms-byui-wd430-default-rtdb.firebaseio.com/documents.json';
 
   documentSelectedEvent = new EventEmitter<Document>();
-  // documentChangedEvent = new EventEmitter<Document[]>();
   documentListChangedEvent = new Subject<Document[]>();
 
   maxDocumentId: number;
@@ -22,13 +21,27 @@ export class DocumentService {
     this.documents = MOCKDOCUMENTS;
     this.maxDocumentId = this.getMaxId();
   }
-
-  /*getDocuments(): Document[] {
-    return this.documents.slice();
-  }*/
   
   getDocuments(): Observable<Document[]> {
-    return this.http.get<Document[]>(this.bdD);
+    return this.http.get<Document[]>(this.bdD).pipe(
+      map(documents => {
+        // Assign the array of documents received to the documents property
+        this.documents = documents;
+
+        // Call the getMaxId() method to get the maximum value used for the id property
+        this.maxDocumentId = this.getMaxId();
+        console.log("desde document.list1: " + this.maxDocumentId);
+
+        // Sort the list of documents by name
+        this.documents.sort((a, b) => a.name.localeCompare(b.name));
+
+        this.documentListChangedEvent.next(this.documents.slice());
+
+        // Return the processed documents
+        console.log("2: " + documents);
+        return documents;
+      })
+    );
   }
 
   getDocument(id: string): Document {
