@@ -1,4 +1,10 @@
-import { Component, EventEmitter, OnInit, Output, OnDestroy } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  OnDestroy,
+} from '@angular/core';
 import { Document } from '../document.model';
 import { DocumentService } from '../document.service';
 import { Subscription } from 'rxjs';
@@ -23,12 +29,11 @@ export class DocumentListComponent implements OnInit, OnDestroy {
       },
       error: (error: any) => {
         console.error(error); // Maneja el error de manera adecuada
-      }
+      },
     });
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-
 }

@@ -8,15 +8,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root',
 })
 export class DocumentService {
-  bdD: string =
-    'https://cms-byui-wd430-default-rtdb.firebaseio.com/documents.json';
+  bdD: string = 'https://cms-byui-wd430-default-rtdb.firebaseio.com/documents.json';
 
   documentSelectedEvent = new EventEmitter<Document>();
   documentListChangedEvent = new Subject<Document[]>();
 
   maxDocumentId: number;
-
   documents: Document[] = [];
+
   constructor(private http: HttpClient) {
     this.documents = MOCKDOCUMENTS;
     this.maxDocumentId = this.getMaxId();
@@ -37,8 +36,6 @@ export class DocumentService {
 
         this.documentListChangedEvent.next(this.documents.slice());
 
-        // Return the processed documents
-        //console.log('2->: ' + documents[11].name);
         return documents;
       })
     );
@@ -57,10 +54,9 @@ export class DocumentService {
       return;
     }
     this.documents.splice(pos, 1);
-    //this.documentListChangedEvent.next(this.documents.slice());
     this.storeDocuments();
   }
-  //semana 7
+
   getMaxId(): number {
     let maxId = 0;
     for (let document of this.documents) {
@@ -78,11 +74,9 @@ export class DocumentService {
     }
 
     this.maxDocumentId++;
-    let maxIdString = this.maxDocumentId.toString();
-    newDocument.id = maxIdString;
 
+    newDocument.id = this.maxDocumentId.toString();
     this.documents.push(newDocument);
-    //this.documentListChangedEvent.next(this.documents.slice());
     this.storeDocuments();
   }
 
@@ -101,7 +95,6 @@ export class DocumentService {
 
     newDocument.id = originalDocument.id;
     this.documents[position] = newDocument;
-    //this.documentListChangedEvent.next(this.documents.slice());
     this.storeDocuments();
   }
 

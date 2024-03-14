@@ -14,31 +14,29 @@ import { Subscription } from 'rxjs';
   templateUrl: './contact-list.component.html',
   styleUrl: './contact-list.component.css',
 })
+
 export class ContactListComponent implements OnInit, OnDestroy {
   contacts: Contact[] = [];
+  term: string;
   subscription: Subscription;
-  term:string;
 
   constructor(private contactService: ContactService) {}
 
   ngOnInit(): void {
-    this.contacts = this.contactService.getContacts();
-    this.subscription = this.contactService.contactListChangedEvent.subscribe(
-      (contactsList: Contact[]) => {
-        this.contacts = contactsList;
-      }
-    );
+    this.subscription = this.contactService.getContacts().subscribe({
+      next: (contacts: Contact[]) => {
+        this.contacts = contacts;
+      },
+      error: (error: any) => {
+        console.error(error); // Maneja el error de manera adecuada
+      },
+    });
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  /*searchBox(value: string) {
-    //this.term = value;
-    return null;
-  }*/
-  
   search(value: string) {
     this.term = value;
   }
