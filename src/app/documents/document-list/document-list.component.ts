@@ -29,7 +29,8 @@ export class DocumentListComponent implements OnInit, OnDestroy {
       this.subscription = this.documentService.getDocuments().subscribe(
         (documents: Document[]) => {
           this.documents = documents;
-          const maxDocumentId: number = this.documentService.getMaxId()
+          const maxDocumentId: number = this.documentService.getMaxId();
+          console.log(maxDocumentId.valueOf);
         },
         (error: any) => {
           console.error(error); // Maneja el error de manera adecuada
