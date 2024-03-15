@@ -7,8 +7,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
+
 export class DocumentService {
-  bdD: string = 'https://cms-byui-wd430-default-rtdb.firebaseio.com/documents.json';
+  bdD: string =
+    'https://cms-byui-wd430-default-rtdb.firebaseio.com/documents.json';
 
   documentSelectedEvent = new EventEmitter<Document>();
   documentListChangedEvent = new Subject<Document[]>();
@@ -98,20 +100,22 @@ export class DocumentService {
     this.storeDocuments();
   }
 
-  storeDocuments(){
+  storeDocuments() {
     // Convertir el arreglo de documentos en formato de texto
     const documentsString = JSON.stringify(this.documents);
     // Crear encabezados para la solicitud HTTP
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     });
     // Realizar la solicitud HTTP PUT para actualizar la lista de documentos en el servidor Firebase
     this.http.put(this.bdD, documentsString, { headers }).subscribe({
-      next:() => {
-      // Emitir el evento documentListChangedEvent con una copia de los documentos para notificar al componente que la lista de documentos ha cambiado
-      this.documentListChangedEvent.next(this.documents.slice());
-    }, error: (error: any) => {
-      console.error('Error al almacenar documentos:', error);
-    }});
+      next: () => {
+        // Emitir el evento documentListChangedEvent con una copia de los documentos para notificar al componente que la lista de documentos ha cambiado
+        this.documentListChangedEvent.next(this.documents.slice());
+      },
+      error: (error: any) => {
+        console.error('Error al almacenar documentos:', error);
+      },
+    });
   }
 }
