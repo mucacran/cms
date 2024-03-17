@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Message } from '../message.model';
 import { ContactService } from '../../contacts/contact.service';
 import { Contact } from '../../contacts/contact.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'cms-message-item',
@@ -13,15 +14,28 @@ export class MessageItemComponent implements OnInit {
 
   messageSender: string;
 
+  contacts: Contact[];
+  subscription: Subscription;
+
   constructor(private contactService: ContactService) { }
 
   ngOnInit() {
-    console.log("Message Sender:", this.message.sender);
-    const contact: Contact = this.contactService.getContact(this.message.sender);
-    console.log(contact)
-    if (contact) {
-      console.log(contact)
-      this.messageSender = contact.name;
-    }
+    this.subscription = this.contactService.getContacts().subscribe({
+      next: (contacts: Contact[]) => {
+        this.contacts = contacts;
+        const messageSenderContact = this.contacts.find(contact => contact.id === this.message.sender);
+        console.log("---------------------------");
+        console.log(messageSenderContact?.id);
+        if (messageSenderContact) {
+          this.messageSender = messageSenderContact.name + " - " + messageSenderContact.id;
+        } else {
+          console.log("else: " + this.message.sender);
+          this.messageSender = 'Desconocido';
+        }
+      },
+      error: (error: any) => {
+        console.error(error); // Maneja el error de manera adecuada
+      },
+    });
   }
 }

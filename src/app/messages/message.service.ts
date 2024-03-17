@@ -17,20 +17,20 @@ export class MessageService {
   messageListChangedEvent = new Subject<Message[]>();
 
   constructor(private http: HttpClient) {
-    this.message = MOCKMESSAGES;
+    //this.message = MOCKMESSAGES;
   }
 
   getMessages(): Observable<Message[]> {
     return this.http.get<Message[]>(this.bdM).pipe(
-      map((documents) => {
+      map((message) => {
         // Assign the array of documents received to the documents property
-        this.message = documents;
+        this.message = message;
 
         // Call the getMaxId() method to get the maximum value used for the id property
         this.maxMessageId = this.getMaxId();
-        console.log('desde document.list1: ' + this.maxMessageId);
+        //console.log('desde message.service: ' + this.maxMessageId);
 
-        return documents;
+        return message;
       })
     );
   }
@@ -72,7 +72,7 @@ export class MessageService {
       // Emitir el evento messageListChangedEvent con una copia de los documentos para notificar al componente que la lista de documentos ha cambiado
       this.messageListChangedEvent.next(this.message.slice());
     }, error: (error: any) => {
-      console.error('Error al almacenar documentos:', error);
+      console.error('Error al almacenar Menssages:', error);
     }});
   }
 }

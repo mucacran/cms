@@ -16,32 +16,18 @@ export class MessageEditComponent implements OnInit {
   @ViewChild('subject') subject: ElementRef;
   @ViewChild('msgText') msgText: ElementRef;
 
-
-
-
   //Created a string named currentSender and initialized int with the value of you name
-  currentSender: string = 'Brother Sergio';
+  currentSender: string = '15';
 
   constructor(private messageService:MessageService) { }
 
   ngOnInit(): void { }
 
-  // onSendMessage() {
-  //   //get the value stored in the subject
-  //   const subject = this.subject.nativeElement.value;
-  //   //get the value stored in the msgText
-  //   const msgText = this.msgText.nativeElement.value;
-  //   //assign a hardcoded number to the id property of the new Message object
-  //   const message = new Message('1', subject, msgText, this.currentSender);
-  //   // call the addMessageEvent emitter emit() metho and pass it the new message
-  //   this.addMessageEvent.emit(message);
-  // }
-
   onSendMessage(){
     const subject = this.subject.nativeElement.value;
     const msgText = this.msgText.nativeElement.value;
-    const message = new Message(this.messageService.getNextId(), subject, msgText, "0");
-    this.messageService.addMessage(message);
+    const nMessage = new Message(this.messageService.getNextId(), subject, msgText, this.currentSender);
+    this.messageService.addMessage(nMessage);
   }
 
   onClear() {

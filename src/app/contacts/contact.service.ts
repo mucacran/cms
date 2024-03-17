@@ -30,8 +30,7 @@ export class ContactService {
 
         // Call the getMaxId() method to get the maximum value used for the id property
         this.maxContactId = this.getMaxId();
-        console.log('desde contact.service_1: ' + this.maxContactId);
-
+        
         // Sort the list of contacts by name
         this.contacts.sort((a, b) => a.name.localeCompare(b.name));
 
