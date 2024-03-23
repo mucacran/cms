@@ -10,10 +10,10 @@ import { Observable, Subject, map } from 'rxjs';
 export class MessageService {
   bdM: string = 'https://cms-byui-wd430-default-rtdb.firebaseio.com/messages.json';
 
-  maxMessageId:number;
-  message: Message[]=[];
+  maxMessageId: number;
+  message: Message[] = [];
   //
-  messageChangedEvent  = new EventEmitter<Message[]>();
+  messageChangedEvent = new EventEmitter<Message[]>();
   messageListChangedEvent = new Subject<Message[]>();
 
   constructor(private http: HttpClient) {
@@ -39,7 +39,7 @@ export class MessageService {
     return this.message.find((c) => c.id === id);
   }
 
-  addMessage(message:Message){
+  addMessage(message: Message) {
     this.message.push(message);
     this.storeMessages();
   }
@@ -59,7 +59,7 @@ export class MessageService {
     return maxId;
   }
 
-  storeMessages(){
+  storeMessages() {
     // Convertir el arreglo de documentos en formato de texto
     const messageString = JSON.stringify(this.message);
     // Crear encabezados para la solicitud HTTP
@@ -68,11 +68,12 @@ export class MessageService {
     });
     // Realizar la solicitud HTTP PUT para actualizar la lista de documentos en el servidor Firebase
     this.http.put(this.bdM, messageString, { headers }).subscribe({
-      next:() => {
-      // Emitir el evento messageListChangedEvent con una copia de los documentos para notificar al componente que la lista de documentos ha cambiado
-      this.messageListChangedEvent.next(this.message.slice());
-    }, error: (error: any) => {
-      console.error('Error al almacenar Menssages:', error);
-    }});
+      next: () => {
+        // Emitir el evento messageListChangedEvent con una copia de los documentos para notificar al componente que la lista de documentos ha cambiado
+        this.messageListChangedEvent.next(this.message.slice());
+      }, error: (error: any) => {
+        console.error('Error al almacenar Menssages:', error);
+      }
+    });
   }
 }
